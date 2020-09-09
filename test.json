@@ -1,0 +1,41 @@
+{
+    "webPort": 8000,
+    "metricsPort": 9000,
+    "metricsPath": "/metircs",
+    "logging": {
+        "type": "cloudwatch",
+        "cloudwatch": {
+            "accessKeyID": "ACCESS_KEY",
+            "secretAccessKey": "SECRET_ACCESS_KEY",
+            "region": "EU",
+            "logGroup": "base_app"
+            }
+        },
+    "kafka": {
+        "brokers": [
+            {
+                "hostname": "broker-host",
+                "port": 27015
+            }
+        ],
+        "topics": [
+            {
+                "name": "someTopic",
+                "consumerGroupName": "someGroupName"
+            }
+        ]
+    },
+    "database": {
+        "name": "dBaseName",
+        "username": "username",
+        "password": "password",
+        "hostname": "hostname",
+        "port": 5432,
+        "pgPass": "pgpass"
+    },
+    "objectStore": {
+        "accessKey": "Testing",
+        "secretKey": "Testing",
+        "endpoint": "my.storage.endpoint"
+    }
+}
