@@ -174,7 +174,10 @@ class ObjectStoreConfig:
         self.secretKey = None
 
         #: object storage configuration
-        self.endpoint = None
+        self.hostname = None
+
+        #: object storage configuration
+        self.port = None
 
     @classmethod
     def dictToObject(cls, dict):
@@ -186,7 +189,9 @@ class ObjectStoreConfig:
 
         obj.secretKey = dict.get('secretKey', None)
 
-        obj.endpoint = dict.get('endpoint', None)
+        obj.hostname = dict.get('hostname', None)
+
+        obj.port = dict.get('port', None)
         return obj
 
 
