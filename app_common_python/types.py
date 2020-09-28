@@ -5,37 +5,37 @@
 
 
 class AppConfig:
-    """ application deployment configuration for cloud.redhat.com applications
+    """ clowdapp deployment configuration for cloud.redhat.com clowdapps
     """
 
     def __init__(self):
 
-        #: application deployment configuration for cloud.redhat.com applications
+        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
         self.webPort = None
 
-        #: application deployment configuration for cloud.redhat.com applications
+        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
         self.metricsPort = None
 
-        #: application deployment configuration for cloud.redhat.com applications
+        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
         self.metricsPath = None
 
-        #: application deployment configuration for cloud.redhat.com applications
+        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
         self.logging = None
 
-        #: application deployment configuration for cloud.redhat.com applications
+        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
         self.kafka = None
 
-        #: application deployment configuration for cloud.redhat.com applications
+        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
         self.database = None
 
-        #: application deployment configuration for cloud.redhat.com applications
+        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
         self.objectStore = None
 
-        #: application deployment configuration for cloud.redhat.com applications
+        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
         self.inMemoryDb = None
 
-        #: application deployment configuration for cloud.redhat.com applications
-        self.dependencies = None
+        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
+        self.endpoints = []
 
     @classmethod
     def dictToObject(cls, dict):
@@ -57,9 +57,12 @@ class AppConfig:
 
         obj.objectStore = ObjectStoreConfig.dictToObject(dict.get('objectStore', None))
 
-        obj.inMemoryDb = InMemoryDB.dictToObject(dict.get('inMemoryDb', None))
+        obj.inMemoryDb = InMemoryDBConfig.dictToObject(dict.get('inMemoryDb', None))
 
-        obj.dependencies = DependenciesConfig.dictToObject(dict.get('dependencies', None))
+        arrayEndpoints = dict.get('endpoints', [])
+        for elemEndpoints in arrayEndpoints:
+            obj.endpoints.append(
+                DependencyEndpoint.dictToObject(elemEndpoints))
         return obj
 
 
@@ -195,7 +198,7 @@ class ObjectStoreConfig:
         return obj
 
 
-class InMemoryDB:
+class InMemoryDBConfig:
     """ In Memory DB configuration
     """
 
@@ -217,7 +220,7 @@ class InMemoryDB:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = InMemoryDB()
+        obj = InMemoryDBConfig()
 
         obj.hostname = dict.get('hostname', None)
 
@@ -229,18 +232,37 @@ class InMemoryDB:
         return obj
 
 
-class DependenciesConfig:
+class DependencyEndpoint:
     """ Dependent service connection info
     """
 
     def __init__(self):
-        pass
+
+        #: Dependent service connection info
+        self.name = None
+
+        #: Dependent service connection info
+        self.hostname = None
+
+        #: Dependent service connection info
+        self.port = None
+
+        #: Dependent service connection info
+        self.app = None
 
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = DependenciesConfig()
+        obj = DependencyEndpoint()
+
+        obj.name = dict.get('name', None)
+
+        obj.hostname = dict.get('hostname', None)
+
+        obj.port = dict.get('port', None)
+
+        obj.app = dict.get('app', None)
         return obj
 
 
@@ -328,35 +350,6 @@ class TopicConfig:
         obj.name = dict.get('name', None)
 
         obj.consumerGroup = dict.get('consumerGroup', None)
-        return obj
-
-
-class DependencyConfig:
-    """ Dependent service connection info
-    """
-
-    def __init__(self):
-
-        #: Dependent service connection info
-        self.name = None
-
-        #: Dependent service connection info
-        self.hostname = None
-
-        #: Dependent service connection info
-        self.port = None
-
-    @classmethod
-    def dictToObject(cls, dict):
-        if dict is None:
-            return None
-        obj = DependencyConfig()
-
-        obj.name = dict.get('name', None)
-
-        obj.hostname = dict.get('hostname', None)
-
-        obj.port = dict.get('port', None)
         return obj
 
 

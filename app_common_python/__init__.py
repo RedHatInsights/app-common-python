@@ -11,6 +11,13 @@ def loadConfig(filename):
 
 LoadedConfig = loadConfig(os.environ.get("ACG_CONFIG"))
 KafkaTopics = {}
-if LoadedConfig.kafka != None and len(LoadedConfig.kafka.topics) > 0:
+if LoadedConfig.kafka and len(LoadedConfig.kafka.topics) > 0:
 	for topic in LoadedConfig.kafka.topics:
 		KafkaTopics[topic.requestedName] = topic
+
+DependencyEndpoints = {}
+if LoadedConfig.endpoints and len(LoadedConfig.endpoints) > 0:
+    for endpoint in LoadedConfig.endpoints:
+        if endpoint.app not in DependencyEndpoints:
+            DependencyEndpoints[endpoint.app] = {}
+        DependencyEndpoints[endpoint.app][endpoint.name] = endpoint
