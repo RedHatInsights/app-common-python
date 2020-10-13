@@ -10,10 +10,16 @@ def loadConfig(filename):
     return AppConfig.dictToObject(data)
 
 LoadedConfig = loadConfig(os.environ.get("ACG_CONFIG"))
+
 KafkaTopics = {}
 if LoadedConfig.kafka and len(LoadedConfig.kafka.topics) > 0:
 	for topic in LoadedConfig.kafka.topics:
 		KafkaTopics[topic.requestedName] = topic
+
+ObjectBuckets = {}
+if LoadedConfig.objectStore and len(LoadedConfig.objectStore.buckets) > 0:
+	for bucket in LoadedConfig.objectStore.buckets:
+		ObjectBuckets[bucket.requestedName] = bucket
 
 DependencyEndpoints = {}
 if LoadedConfig.endpoints and len(LoadedConfig.endpoints) > 0:

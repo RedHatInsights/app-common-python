@@ -142,7 +142,10 @@ class DatabaseConfig:
         self.port = None
 
         #: database configuration
-        self.pgPass = None
+        self.adminUsername = None
+
+        #: database configuration
+        self.adminPassword = None
 
     @classmethod
     def dictToObject(cls, dict):
@@ -160,7 +163,9 @@ class DatabaseConfig:
 
         obj.port = dict.get('port', None)
 
-        obj.pgPass = dict.get('pgPass', None)
+        obj.adminUsername = dict.get('adminUsername', None)
+
+        obj.adminPassword = dict.get('adminPassword', None)
         return obj
 
 
@@ -169,6 +174,9 @@ class ObjectStoreConfig:
     """
 
     def __init__(self):
+
+        #: object storage configuration
+        self.buckets = []
 
         #: object storage configuration
         self.accessKey = None
@@ -187,6 +195,11 @@ class ObjectStoreConfig:
         if dict is None:
             return None
         obj = ObjectStoreConfig()
+
+        arrayBuckets = dict.get('buckets', [])
+        for elemBuckets in arrayBuckets:
+            obj.buckets.append(
+                ObjectStoreBucket.dictToObject(elemBuckets))
 
         obj.accessKey = dict.get('accessKey', None)
 
@@ -350,6 +363,40 @@ class TopicConfig:
         obj.name = dict.get('name', None)
 
         obj.consumerGroup = dict.get('consumerGroup', None)
+        return obj
+
+
+class ObjectStoreBucket:
+    """ object storage bucket
+    """
+
+    def __init__(self):
+
+        #: object storage bucket
+        self.accessKey = None
+
+        #: object storage bucket
+        self.secretKey = None
+
+        #: object storage bucket
+        self.requestedName = None
+
+        #: object storage bucket
+        self.name = None
+
+    @classmethod
+    def dictToObject(cls, dict):
+        if dict is None:
+            return None
+        obj = ObjectStoreBucket()
+
+        obj.accessKey = dict.get('accessKey', None)
+
+        obj.secretKey = dict.get('secretKey', None)
+
+        obj.requestedName = dict.get('requestedName', None)
+
+        obj.name = dict.get('name', None)
         return obj
 
 
