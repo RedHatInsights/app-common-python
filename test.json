@@ -34,7 +34,8 @@
         "port": 5432,
         "pgPass": "testing",
         "adminUsername": "adminusername",
-        "adminPassword": "adminpassword"
+        "adminPassword": "adminpassword",
+        "rdsCa": "ca"
     },
     "objectStore": {
         "hostname": "endpoint",

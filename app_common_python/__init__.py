@@ -1,13 +1,24 @@
 import json
 import os
+import tempfile
 from typing import List, Optional
 from .types import AppConfig
 
 
+class SmartAppConfig(AppConfig):
+
+    def rds_ca(self):
+        if not hasattr(self, "_rds_ca"):
+            with tempfile.NamedTemporaryFile(delete=False) as tf:
+                self._rds_ca = tf.name
+                tf.write(self.database.rdsCa.encode("utf-8"))
+
+        return self._rds_ca
+
 def loadConfig(filename):
     with open(filename) as f:
         data = json.load(f)
-    return AppConfig.dictToObject(data)
+    return SmartAppConfig.dictToObject(data)
 
 LoadedConfig = loadConfig(os.environ.get("ACG_CONFIG"))
 

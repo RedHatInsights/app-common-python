@@ -6,3 +6,6 @@ def test_load_config():
     assert DependencyEndpoints["app1"]["endpoint1"].port == 8000
     assert DependencyEndpoints["app2"]["endpoint2"].name == "endpoint2"
     assert ObjectBuckets["reqname"].name == "name"
+    with open(LoadedConfig.rds_ca()) as fp:
+        ca_content = fp.read()
+        assert ca_content == "ca"

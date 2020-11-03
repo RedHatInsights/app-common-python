@@ -41,7 +41,7 @@ class AppConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = AppConfig()
+        obj = cls()
 
         obj.webPort = dict.get('webPort', None)
 
@@ -147,6 +147,9 @@ class DatabaseConfig:
         #: database configuration
         self.adminPassword = None
 
+        #: database configuration
+        self.rdsCa = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -166,6 +169,8 @@ class DatabaseConfig:
         obj.adminUsername = dict.get('adminUsername', None)
 
         obj.adminPassword = dict.get('adminPassword', None)
+
+        obj.rdsCa = dict.get('rdsCa', None)
         return obj
 
 
