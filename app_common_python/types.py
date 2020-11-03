@@ -195,6 +195,9 @@ class ObjectStoreConfig:
         #: object storage configuration
         self.port = None
 
+        #: object storage configuration
+        self.tls = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -213,6 +216,8 @@ class ObjectStoreConfig:
         obj.hostname = dict.get('hostname', None)
 
         obj.port = dict.get('port', None)
+
+        obj.tls = dict.get('tls', None)
         return obj
 
 
