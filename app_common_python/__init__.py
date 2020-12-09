@@ -38,3 +38,8 @@ if LoadedConfig.endpoints and len(LoadedConfig.endpoints) > 0:
         if endpoint.app not in DependencyEndpoints:
             DependencyEndpoints[endpoint.app] = {}
         DependencyEndpoints[endpoint.app][endpoint.name] = endpoint
+
+KafkaServers = []
+if LoadedConfig.kafka and len(LoadedConfig.kafka.brokers) > 0:
+    for broker in LoadedConfig.kafka.brokers:
+        KafkaServers.append("{}:{}".format(broker.hostname, broker.port))

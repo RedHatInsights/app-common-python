@@ -5,36 +5,36 @@
 
 
 class AppConfig:
-    """ clowdapp deployment configuration for cloud.redhat.com clowdapps
+    """ ClowdApp deployment configuration for Clowder enabled apps.
     """
 
     def __init__(self):
 
-        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
+        #: ClowdApp deployment configuration for Clowder enabled apps.
         self.webPort = None
 
-        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
+        #: ClowdApp deployment configuration for Clowder enabled apps.
         self.metricsPort = None
 
-        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
+        #: ClowdApp deployment configuration for Clowder enabled apps.
         self.metricsPath = None
 
-        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
+        #: ClowdApp deployment configuration for Clowder enabled apps.
         self.logging = None
 
-        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
+        #: ClowdApp deployment configuration for Clowder enabled apps.
         self.kafka = None
 
-        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
+        #: ClowdApp deployment configuration for Clowder enabled apps.
         self.database = None
 
-        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
+        #: ClowdApp deployment configuration for Clowder enabled apps.
         self.objectStore = None
 
-        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
+        #: ClowdApp deployment configuration for Clowder enabled apps.
         self.inMemoryDb = None
 
-        #: clowdapp deployment configuration for cloud.redhat.com clowdapps
+        #: ClowdApp deployment configuration for Clowder enabled apps.
         self.endpoints = []
 
     @classmethod
@@ -91,15 +91,15 @@ class LoggingConfig:
 
 
 class KafkaConfig:
-    """ kafka configuration
+    """ Kafka Configuration
     """
 
     def __init__(self):
 
-        #: kafka configuration
+        #: Kafka Configuration
         self.brokers = []
 
-        #: kafka configuration
+        #: Kafka Configuration
         self.topics = []
 
     @classmethod
@@ -121,33 +121,33 @@ class KafkaConfig:
 
 
 class DatabaseConfig:
-    """ database configuration
+    """ Database Configuration
     """
 
     def __init__(self):
 
-        #: database configuration
+        #: Database Configuration
         self.name = None
 
-        #: database configuration
+        #: Database Configuration
         self.username = None
 
-        #: database configuration
+        #: Database Configuration
         self.password = None
 
-        #: database configuration
+        #: Database Configuration
         self.hostname = None
 
-        #: database configuration
+        #: Database Configuration
         self.port = None
 
-        #: database configuration
+        #: Database Configuration
         self.adminUsername = None
 
-        #: database configuration
+        #: Database Configuration
         self.adminPassword = None
 
-        #: database configuration
+        #: Database Configuration
         self.rdsCa = None
 
     @classmethod
@@ -175,27 +175,27 @@ class DatabaseConfig:
 
 
 class ObjectStoreConfig:
-    """ object storage configuration
+    """ Object Storage Configuration
     """
 
     def __init__(self):
 
-        #: object storage configuration
+        #: Object Storage Configuration
         self.buckets = []
 
-        #: object storage configuration
+        #: Object Storage Configuration
         self.accessKey = None
 
-        #: object storage configuration
+        #: Object Storage Configuration
         self.secretKey = None
 
-        #: object storage configuration
+        #: Object Storage Configuration
         self.hostname = None
 
-        #: object storage configuration
+        #: Object Storage Configuration
         self.port = None
 
-        #: object storage configuration
+        #: Object Storage Configuration
         self.tls = None
 
     @classmethod
@@ -222,21 +222,21 @@ class ObjectStoreConfig:
 
 
 class InMemoryDBConfig:
-    """ In Memory DB configuration
+    """ In Memory DB Configuration
     """
 
     def __init__(self):
 
-        #: In Memory DB configuration
+        #: In Memory DB Configuration
         self.hostname = None
 
-        #: In Memory DB configuration
+        #: In Memory DB Configuration
         self.port = None
 
-        #: In Memory DB configuration
+        #: In Memory DB Configuration
         self.username = None
 
-        #: In Memory DB configuration
+        #: In Memory DB Configuration
         self.password = None
 
     @classmethod
@@ -324,15 +324,15 @@ class CloudWatchConfig:
 
 
 class BrokerConfig:
-    """ broker configuration
+    """ Broker Configuration
     """
 
     def __init__(self):
 
-        #: broker configuration
+        #: Broker Configuration
         self.hostname = None
 
-        #: broker configuration
+        #: Broker Configuration
         self.port = None
 
     @classmethod
@@ -348,18 +348,18 @@ class BrokerConfig:
 
 
 class TopicConfig:
-    """ topic configuration
+    """ Topic Configuration
     """
 
     def __init__(self):
 
-        #: topic configuration
+        #: Topic Configuration
         self.requestedName = None
 
-        #: topic configuration
+        #: Topic Configuration
         self.name = None
 
-        #: topic configuration
+        #: Topic Configuration
         self.consumerGroup = None
 
     @classmethod
@@ -377,21 +377,21 @@ class TopicConfig:
 
 
 class ObjectStoreBucket:
-    """ object storage bucket
+    """ Object Storage Bucket
     """
 
     def __init__(self):
 
-        #: object storage bucket
+        #: Object Storage Bucket
         self.accessKey = None
 
-        #: object storage bucket
+        #: Object Storage Bucket
         self.secretKey = None
 
-        #: object storage bucket
+        #: Object Storage Bucket
         self.requestedName = None
 
-        #: object storage bucket
+        #: Object Storage Bucket
         self.name = None
 
     @classmethod
