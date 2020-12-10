@@ -16,8 +16,11 @@ class SmartAppConfig(AppConfig):
         return self._rds_ca
 
 def loadConfig(filename):
-    with open(filename) as f:
-        data = json.load(f)
+    if not filename:
+        data = {}
+    else:
+        with open(filename) as f:
+            data = json.load(f)
     return SmartAppConfig.dictToObject(data)
 
 LoadedConfig = loadConfig(os.environ.get("ACG_CONFIG"))
