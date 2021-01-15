@@ -1,4 +1,4 @@
-from app_common_python import LoadedConfig, KafkaTopics, DependencyEndpoints, ObjectBuckets, KafkaServers
+from app_common_python import LoadedConfig, KafkaTopics, DependencyEndpoints, ObjectBuckets, KafkaServers, isClowderEnabled
 
 def test_load_config():
     assert LoadedConfig.kafka.brokers[0].port == 27015, "Port failed to be found"
@@ -10,3 +10,4 @@ def test_load_config():
     with open(LoadedConfig.rds_ca()) as fp:
         ca_content = fp.read()
         assert ca_content == "ca"
+    assert isClowderEnabled() == True

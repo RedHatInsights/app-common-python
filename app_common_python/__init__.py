@@ -15,6 +15,9 @@ class SmartAppConfig(AppConfig):
 
         return self._rds_ca
 
+def isClowderEnabled ():
+    return bool(os.environ.get("ACG_CONFIG", False))
+
 def loadConfig(filename):
     if not filename:
         data = {}
