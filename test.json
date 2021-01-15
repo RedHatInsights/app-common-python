@@ -52,6 +52,10 @@
             }
         ]
     },
+    "featureFlags": {
+        "hostname": "ff-server.server.example.com",
+        "port": 4242
+    },
     "endpoints": [
         {
             "name": "endpoint1",
