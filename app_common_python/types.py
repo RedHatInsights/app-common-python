@@ -35,6 +35,9 @@ class AppConfig:
         self.inMemoryDb = None
 
         #: ClowdApp deployment configuration for Clowder enabled apps.
+        self.featureFlags = None
+
+        #: ClowdApp deployment configuration for Clowder enabled apps.
         self.endpoints = []
 
     @classmethod
@@ -58,6 +61,8 @@ class AppConfig:
         obj.objectStore = ObjectStoreConfig.dictToObject(dict.get('objectStore', None))
 
         obj.inMemoryDb = InMemoryDBConfig.dictToObject(dict.get('inMemoryDb', None))
+
+        obj.featureFlags = FeatureFlagsConfig.dictToObject(dict.get('featureFlags', None))
 
         arrayEndpoints = dict.get('endpoints', [])
         for elemEndpoints in arrayEndpoints:
@@ -252,6 +257,30 @@ class InMemoryDBConfig:
         obj.username = dict.get('username', None)
 
         obj.password = dict.get('password', None)
+        return obj
+
+
+class FeatureFlagsConfig:
+    """ Feature Flags Configuration
+    """
+
+    def __init__(self):
+
+        #: Feature Flags Configuration
+        self.hostname = None
+
+        #: Feature Flags Configuration
+        self.port = None
+
+    @classmethod
+    def dictToObject(cls, dict):
+        if dict is None:
+            return None
+        obj = FeatureFlagsConfig()
+
+        obj.hostname = dict.get('hostname', None)
+
+        obj.port = dict.get('port', None)
         return obj
 
 

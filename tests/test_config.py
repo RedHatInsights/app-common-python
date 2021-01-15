@@ -11,3 +11,4 @@ def test_load_config():
         ca_content = fp.read()
         assert ca_content == "ca"
     assert isClowderEnabled() == True
+    assert LoadedConfig.featureFlags.hostname == "ff-server.server.example.com"
