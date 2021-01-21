@@ -61,13 +61,28 @@
             "name": "endpoint1",
             "app": "app1",
             "hostname": "endpoint1.svc",
-            "port": 8000
+            "port": 8000,
+            "type": "public"
+        },
+        {
+            "name": "endpoint1",
+            "app": "app1",
+            "hostname": "endpoint1.svc",
+            "port": 10000,
+            "type": "internal"
         },
         {
             "name": "endpoint2",
             "app": "app2",
             "hostname": "endpoint2.svc",
             "port": 8000
+        },
+        {
+            "name": "endpoint3",
+            "app": "app2",
+            "hostname": "endpoint2.svc",
+            "port": 10000,
+            "type": "internal"
         }
     ]
 }

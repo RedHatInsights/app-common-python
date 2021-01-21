@@ -2,6 +2,7 @@
 # run of the code generation.
 # created by yacg (template: pythonBeans.mako v1.0.0)
 
+from enum import Enum
 
 
 class AppConfig:
@@ -9,6 +10,12 @@ class AppConfig:
     """
 
     def __init__(self):
+
+        #: ClowdApp deployment configuration for Clowder enabled apps.
+        self.internalPort = None
+
+        #: ClowdApp deployment configuration for Clowder enabled apps.
+        self.publicPort = None
 
         #: ClowdApp deployment configuration for Clowder enabled apps.
         self.webPort = None
@@ -45,6 +52,10 @@ class AppConfig:
         if dict is None:
             return None
         obj = cls()
+
+        obj.internalPort = dict.get('internalPort', None)
+
+        obj.publicPort = dict.get('publicPort', None)
 
         obj.webPort = dict.get('webPort', None)
 
@@ -87,7 +98,7 @@ class LoggingConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = LoggingConfig()
+        obj = cls()
 
         obj.type = dict.get('type', None)
 
@@ -111,7 +122,7 @@ class KafkaConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = KafkaConfig()
+        obj = cls()
 
         arrayBrokers = dict.get('brokers', [])
         for elemBrokers in arrayBrokers:
@@ -159,7 +170,7 @@ class DatabaseConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = DatabaseConfig()
+        obj = cls()
 
         obj.name = dict.get('name', None)
 
@@ -207,7 +218,7 @@ class ObjectStoreConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = ObjectStoreConfig()
+        obj = cls()
 
         arrayBuckets = dict.get('buckets', [])
         for elemBuckets in arrayBuckets:
@@ -248,7 +259,7 @@ class InMemoryDBConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = InMemoryDBConfig()
+        obj = cls()
 
         obj.hostname = dict.get('hostname', None)
 
@@ -276,7 +287,7 @@ class FeatureFlagsConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = FeatureFlagsConfig()
+        obj = cls()
 
         obj.hostname = dict.get('hostname', None)
 
@@ -302,11 +313,14 @@ class DependencyEndpoint:
         #: Dependent service connection info
         self.app = None
 
+        #: Dependent service connection info
+        self.type = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = DependencyEndpoint()
+        obj = cls()
 
         obj.name = dict.get('name', None)
 
@@ -315,6 +329,8 @@ class DependencyEndpoint:
         obj.port = dict.get('port', None)
 
         obj.app = dict.get('app', None)
+
+        obj.type = DependencyEndpointTypeEnum.valueForString(dict.get('type', None))
         return obj
 
 
@@ -340,7 +356,7 @@ class CloudWatchConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = CloudWatchConfig()
+        obj = cls()
 
         obj.accessKeyId = dict.get('accessKeyId', None)
 
@@ -368,7 +384,7 @@ class BrokerConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = BrokerConfig()
+        obj = cls()
 
         obj.hostname = dict.get('hostname', None)
 
@@ -395,7 +411,7 @@ class TopicConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = TopicConfig()
+        obj = cls()
 
         obj.requestedName = dict.get('requestedName', None)
 
@@ -427,7 +443,7 @@ class ObjectStoreBucket:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = ObjectStoreBucket()
+        obj = cls()
 
         obj.accessKey = dict.get('accessKey', None)
 
@@ -437,5 +453,34 @@ class ObjectStoreBucket:
 
         obj.name = dict.get('name', None)
         return obj
+
+
+class DependencyEndpointTypeEnum(Enum):
+    INTERNAL = 'internal'
+    PUBLIC = 'public'
+
+    @classmethod
+    def valueForString(cls, stringValue):
+        lowerStringValue = stringValue.lower() if stringValue is not None else None
+        if lowerStringValue is None:
+            return None
+        elif lowerStringValue == 'internal':
+            return DependencyEndpointTypeEnum.INTERNAL
+        elif lowerStringValue == 'public':
+            return DependencyEndpointTypeEnum.PUBLIC
+        else:
+            return None
+
+    @classmethod
+    def valueAsString(cls, enumValue):
+        if enumValue is None:
+            return ''
+        elif enumValue == DependencyEndpointTypeEnum.INTERNAL:
+            return 'internal'
+        elif enumValue == DependencyEndpointTypeEnum.PUBLIC:
+            return 'public'
+        else:
+            return ''
+
 
 

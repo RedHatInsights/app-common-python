@@ -8,8 +8,16 @@
             "type": "object",
             "description": "ClowdApp deployment configuration for Clowder enabled apps.",
             "properties": {
+                "internalPort": {
+                    "description": "Defines the internal port that the app should be configured to listen on for API traffic.",
+                    "type": "integer"
+                },
+                "publicPort": {
+                    "description": "Defines the public port that the app should be configured to listen on for API traffic.",
+                    "type": "integer"
+                },
                 "webPort": {
-                    "description": "Defines the web port that the app should be configured to listen on for API traffic.",
+                    "description": "Deprecated: Use 'publicPort' instead.",
                     "type": "integer"
                 },
                 "metricsPort": {
@@ -47,7 +55,6 @@
                 }
             },
             "required": [
-                "webPort",
                 "metricsPort",
                 "metricsPath",
                 "logging"
@@ -344,6 +351,11 @@
                 "app": {
                     "description": "The app name of the ClowdApp hosting the service.",
                     "type": "string"
+                },
+                "type": {
+                    "description": "The type of the port, either 'internal' or 'public'",
+                    "type": "string",
+                    "enum": ["internal", "public"]
                 }
             },
             "required": [
