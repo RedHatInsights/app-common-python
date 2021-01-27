@@ -11,6 +11,12 @@ class AppConfig:
     def __init__(self):
 
         #: ClowdApp deployment configuration for Clowder enabled apps.
+        self.privatePort = None
+
+        #: ClowdApp deployment configuration for Clowder enabled apps.
+        self.publicPort = None
+
+        #: ClowdApp deployment configuration for Clowder enabled apps.
         self.webPort = None
 
         #: ClowdApp deployment configuration for Clowder enabled apps.
@@ -40,11 +46,18 @@ class AppConfig:
         #: ClowdApp deployment configuration for Clowder enabled apps.
         self.endpoints = []
 
+        #: ClowdApp deployment configuration for Clowder enabled apps.
+        self.privateEndpoints = []
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
             return None
         obj = cls()
+
+        obj.privatePort = dict.get('privatePort', None)
+
+        obj.publicPort = dict.get('publicPort', None)
 
         obj.webPort = dict.get('webPort', None)
 
@@ -68,6 +81,11 @@ class AppConfig:
         for elemEndpoints in arrayEndpoints:
             obj.endpoints.append(
                 DependencyEndpoint.dictToObject(elemEndpoints))
+
+        arrayPrivateEndpoints = dict.get('privateEndpoints', [])
+        for elemPrivateEndpoints in arrayPrivateEndpoints:
+            obj.privateEndpoints.append(
+                PrivateDependencyEndpoint.dictToObject(elemPrivateEndpoints))
         return obj
 
 
@@ -87,7 +105,7 @@ class LoggingConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = LoggingConfig()
+        obj = cls()
 
         obj.type = dict.get('type', None)
 
@@ -111,7 +129,7 @@ class KafkaConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = KafkaConfig()
+        obj = cls()
 
         arrayBrokers = dict.get('brokers', [])
         for elemBrokers in arrayBrokers:
@@ -159,7 +177,7 @@ class DatabaseConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = DatabaseConfig()
+        obj = cls()
 
         obj.name = dict.get('name', None)
 
@@ -207,7 +225,7 @@ class ObjectStoreConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = ObjectStoreConfig()
+        obj = cls()
 
         arrayBuckets = dict.get('buckets', [])
         for elemBuckets in arrayBuckets:
@@ -248,7 +266,7 @@ class InMemoryDBConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = InMemoryDBConfig()
+        obj = cls()
 
         obj.hostname = dict.get('hostname', None)
 
@@ -276,7 +294,7 @@ class FeatureFlagsConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = FeatureFlagsConfig()
+        obj = cls()
 
         obj.hostname = dict.get('hostname', None)
 
@@ -306,7 +324,41 @@ class DependencyEndpoint:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = DependencyEndpoint()
+        obj = cls()
+
+        obj.name = dict.get('name', None)
+
+        obj.hostname = dict.get('hostname', None)
+
+        obj.port = dict.get('port', None)
+
+        obj.app = dict.get('app', None)
+        return obj
+
+
+class PrivateDependencyEndpoint:
+    """ Dependent service connection info
+    """
+
+    def __init__(self):
+
+        #: Dependent service connection info
+        self.name = None
+
+        #: Dependent service connection info
+        self.hostname = None
+
+        #: Dependent service connection info
+        self.port = None
+
+        #: Dependent service connection info
+        self.app = None
+
+    @classmethod
+    def dictToObject(cls, dict):
+        if dict is None:
+            return None
+        obj = cls()
 
         obj.name = dict.get('name', None)
 
@@ -340,7 +392,7 @@ class CloudWatchConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = CloudWatchConfig()
+        obj = cls()
 
         obj.accessKeyId = dict.get('accessKeyId', None)
 
@@ -368,7 +420,7 @@ class BrokerConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = BrokerConfig()
+        obj = cls()
 
         obj.hostname = dict.get('hostname', None)
 
@@ -395,7 +447,7 @@ class TopicConfig:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = TopicConfig()
+        obj = cls()
 
         obj.requestedName = dict.get('requestedName', None)
 
@@ -427,7 +479,7 @@ class ObjectStoreBucket:
     def dictToObject(cls, dict):
         if dict is None:
             return None
-        obj = ObjectStoreBucket()
+        obj = cls()
 
         obj.accessKey = dict.get('accessKey', None)
 
