@@ -45,6 +45,13 @@ if LoadedConfig.endpoints and len(LoadedConfig.endpoints) > 0:
             DependencyEndpoints[endpoint.app] = {}
         DependencyEndpoints[endpoint.app][endpoint.name] = endpoint
 
+PrivateDependencyEndpoints = {}
+if LoadedConfig.privateEndpoints and len(LoadedConfig.privateEndpoints) > 0:
+    for endpoint in LoadedConfig.privateEndpoints:
+        if endpoint.app not in PrivateDependencyEndpoints:
+            PrivateDependencyEndpoints[endpoint.app] = {}
+        PrivateDependencyEndpoints[endpoint.app][endpoint.name] = endpoint
+
 KafkaServers = []
 if LoadedConfig.kafka and len(LoadedConfig.kafka.brokers) > 0:
     for broker in LoadedConfig.kafka.brokers:
