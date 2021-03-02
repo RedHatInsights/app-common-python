@@ -30,6 +30,9 @@ class AppConfig:
 
         #: ClowdApp deployment configuration for Clowder enabled apps.
         self.kafka = None
+        
+        #: ClowdApp deploymnet configuration for Cloweder enabled apps.
+        self.sqs = None
 
         #: ClowdApp deployment configuration for Clowder enabled apps.
         self.database = None
@@ -68,6 +71,8 @@ class AppConfig:
         obj.logging = LoggingConfig.dictToObject(dict.get('logging', None))
 
         obj.kafka = KafkaConfig.dictToObject(dict.get('kafka', None))
+        
+        obj.sqs = SQSConfig.dictToObject(dict.get('sqs', None))
 
         obj.database = DatabaseConfig.dictToObject(dict.get('database', None))
 
@@ -140,6 +145,40 @@ class KafkaConfig:
         for elemTopics in arrayTopics:
             obj.topics.append(
                 TopicConfig.dictToObject(elemTopics))
+        return obj
+    
+
+class SQSConfig:
+    """SQS Configuration
+    """
+    
+    def __init__(self):
+        
+        #: SQS Configuration
+        self.name = None
+        
+        #: SQS Configuration
+        self.accesskey = None
+        
+        #: SQS Configuration
+        self.secretkey = None
+
+        #: SQS Configuration
+        self.region = None
+        
+    @classmethod
+    def dictToObject(cls, dict):
+        if dict is None:
+            return None
+        obj = cls()
+        
+        obj.name = dict.get('name', None)
+        
+        obj.accesskey = dict.get('accesskey', None)
+        
+        obj.secretkey = dict.get('secretkey', None)
+        
+        obj.region = dict.get('region', None)
         return obj
 
 
