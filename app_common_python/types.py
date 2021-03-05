@@ -173,6 +173,9 @@ class DatabaseConfig:
         #: Database Configuration
         self.rdsCa = None
 
+        #: Database Configuration
+        self.sslMode = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -194,6 +197,8 @@ class DatabaseConfig:
         obj.adminPassword = dict.get('adminPassword', None)
 
         obj.rdsCa = dict.get('rdsCa', None)
+
+        obj.sslMode = dict.get('sslMode', None)
         return obj
 
 
