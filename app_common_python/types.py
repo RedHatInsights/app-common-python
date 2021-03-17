@@ -173,6 +173,9 @@ class DatabaseConfig:
         #: Database Configuration
         self.rdsCa = None
 
+        #: Database Configuration
+        self.sslMode = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -194,6 +197,8 @@ class DatabaseConfig:
         obj.adminPassword = dict.get('adminPassword', None)
 
         obj.rdsCa = dict.get('rdsCa', None)
+
+        obj.sslMode = dict.get('sslMode', None)
         return obj
 
 
@@ -470,6 +475,9 @@ class ObjectStoreBucket:
         self.secretKey = None
 
         #: Object Storage Bucket
+        self.region = None
+
+        #: Object Storage Bucket
         self.requestedName = None
 
         #: Object Storage Bucket
@@ -484,6 +492,8 @@ class ObjectStoreBucket:
         obj.accessKey = dict.get('accessKey', None)
 
         obj.secretKey = dict.get('secretKey', None)
+
+        obj.region = dict.get('region', None)
 
         obj.requestedName = dict.get('requestedName', None)
 
