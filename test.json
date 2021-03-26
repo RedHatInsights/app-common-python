@@ -26,6 +26,12 @@
             }
         ]
     },
+    "sqs": {
+        "name": "https://some-amazon-url.com/some-queue",
+        "accesskey": "someaccesskey",
+        "secretkey": "somesecretkey",
+        "region": "us-east-1"
+    },
     "database": {
         "name": "dBaseName",
         "username": "username",

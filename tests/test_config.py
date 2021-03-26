@@ -14,3 +14,4 @@ def test_load_config():
         assert ca_content == "ca"
     assert isClowderEnabled() == True
     assert LoadedConfig.featureFlags.hostname == "ff-server.server.example.com"
+    assert LoadedConfig.sqs.name == "https://some-amazon-url.com/some-queue"

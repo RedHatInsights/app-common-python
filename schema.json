@@ -139,6 +139,32 @@
                 "topics"
             ]
         },
+        "SQSConfig": {
+            "id": "sqsConfig",
+            "type": "object",
+            "description": "SQS Configuration",
+            "properties": {
+                "name": {
+                    "description": "Defines the url of the SQS queue",
+                    "type": "string"
+                },
+                "accesskey": {
+                    "description": "Access Key for the SQS queue",
+                    "type": "string"
+                },
+                "secretkey": {
+                    "description": "Secret Key for the SQS queue",
+                    "type": "string"
+                },
+                "region": {
+                    "description": "Region of the SQS queue",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name"
+            ]
+        },
         "BrokerConfig": {
             "id": "brokerConfig",
             "type": "object",
