@@ -2,6 +2,7 @@
 # run of the code generation.
 # created by yacg (template: pythonBeans.mako v1.0.0)
 
+from enum import Enum
 
 
 class AppConfig:
@@ -421,6 +422,15 @@ class BrokerConfig:
         #: Broker Configuration
         self.port = None
 
+        #: Broker Configuration
+        self.cacert = None
+
+        #: Broker Configuration
+        self.authtype = None
+
+        #: Broker Configuration
+        self.sasl = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -430,6 +440,12 @@ class BrokerConfig:
         obj.hostname = dict.get('hostname', None)
 
         obj.port = dict.get('port', None)
+
+        obj.cacert = dict.get('cacert', None)
+
+        obj.authtype = BrokerConfigAuthtypeEnum.valueForString(dict.get('authtype', None))
+
+        obj.sasl = KafkaSASLConfig.dictToObject(dict.get('sasl', None))
         return obj
 
 
@@ -445,9 +461,6 @@ class TopicConfig:
         #: Topic Configuration
         self.name = None
 
-        #: Topic Configuration
-        self.consumerGroup = None
-
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -457,9 +470,60 @@ class TopicConfig:
         obj.requestedName = dict.get('requestedName', None)
 
         obj.name = dict.get('name', None)
-
-        obj.consumerGroup = dict.get('consumerGroup', None)
         return obj
+
+
+class KafkaSASLConfig:
+    """ SASL Configuration for Kafka
+    """
+
+    def __init__(self):
+
+        #: SASL Configuration for Kafka
+        self.username = None
+
+        #: SASL Configuration for Kafka
+        self.password = None
+
+    @classmethod
+    def dictToObject(cls, dict):
+        if dict is None:
+            return None
+        obj = cls()
+
+        obj.username = dict.get('username', None)
+
+        obj.password = dict.get('password', None)
+        return obj
+
+
+class BrokerConfigAuthtypeEnum(Enum):
+    MTLS = 'mtls'
+    SASL = 'sasl'
+
+    @classmethod
+    def valueForString(cls, stringValue):
+        lowerStringValue = stringValue.lower() if stringValue is not None else None
+        if lowerStringValue is None:
+            return None
+        elif lowerStringValue == 'mtls':
+            return BrokerConfigAuthtypeEnum.MTLS
+        elif lowerStringValue == 'sasl':
+            return BrokerConfigAuthtypeEnum.SASL
+        else:
+            return None
+
+    @classmethod
+    def valueAsString(cls, enumValue):
+        if enumValue is None:
+            return ''
+        elif enumValue == BrokerConfigAuthtypeEnum.MTLS:
+            return 'mtls'
+        elif enumValue == BrokerConfigAuthtypeEnum.SASL:
+            return 'sasl'
+        else:
+            return ''
+
 
 
 class ObjectStoreBucket:
