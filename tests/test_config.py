@@ -1,4 +1,13 @@
-from app_common_python import LoadedConfig, KafkaTopics, DependencyEndpoints, ObjectBuckets, KafkaServers, isClowderEnabled, PrivateDependencyEndpoints
+from app_common_python import (
+    LoadedConfig, 
+    KafkaTopics, 
+    DependencyEndpoints, 
+    ObjectBuckets, 
+    KafkaServers, 
+    isClowderEnabled, 
+    PrivateDependencyEndpoints, 
+    Database
+)
 
 def test_load_config():
     assert LoadedConfig.kafka.brokers[0].port == 27015, "Port failed to be found"
@@ -14,3 +23,6 @@ def test_load_config():
         assert ca_content == "ca"
     assert isClowderEnabled() == True
     assert LoadedConfig.featureFlags.hostname == "ff-server.server.example.com"
+    assert str(Database).startswith("postgresql://username:password@hostname:5432/dBaseName?sslmode=verify-full&sslrootcert=/tmp")
+    assert Database.log().startswith("postgresql://XXXX:xxxx@hostname:5432/dBaseName?sslmode=verify-full&sslrootcert=/tmp")
+    assert Database.admin().startswith("postgresql://adminusername:adminpassword@hostname:5432/dBaseName?sslmode=verify-full&sslrootcert=/tmp")

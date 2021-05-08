@@ -31,6 +31,9 @@ The ``clowder`` library also comes with several other helpers
   for the public services of requested applications. 
 * ``PrivateDependencyEndpoints`` - returns a nested map using \[appName\]\[deploymentName\] 
   for the private services of requested applications.
+* ``Database`` - returns an object that provides a URI string for connection to a database
+  also provides a ``log()`` method for obscuring the user/pass and a ``admin()`` method for
+  providing a URI with the admin credentials.
 
 Testing
 -------
