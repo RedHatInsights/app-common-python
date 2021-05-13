@@ -1,4 +1,4 @@
-from app_common_python import LoadedConfig, KafkaTopics, DependencyEndpoints, ObjectBuckets, KafkaServers, isClowderEnabled, PrivateDependencyEndpoints
+from app_common_python import LoadedConfig, KafkaTopics, DependencyEndpoints, ObjectBuckets, KafkaServers, isClowderEnabled, PrivateDependencyEndpoints, KafkaBrokers
 
 def test_load_config():
     assert LoadedConfig.kafka.brokers[0].port == 27015, "Port failed to be found"
@@ -14,3 +14,7 @@ def test_load_config():
         assert ca_content == "ca"
     assert isClowderEnabled() == True
     assert LoadedConfig.featureFlags.hostname == "ff-server.server.example.com"
+    with open(KafkaBrokers[0].kafka_ca) as fp:
+        ca_content = fp.read()
+        assert ca_content == "test"
+    assert KafkaBrokers[0].sasl.username == "bob"

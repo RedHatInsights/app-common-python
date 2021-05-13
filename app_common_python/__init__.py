@@ -4,6 +4,21 @@ import tempfile
 from typing import List, Optional
 from .types import AppConfig
 
+class KafkaBroker():
+    def __init__(self, info):
+        for k, v in info.__dict__.items():
+            setattr(self, k, v)
+
+    @property
+    def kafka_ca(self):
+        if not hasattr(self, "_kafka_ca"):
+            if self.cacert:
+                with tempfile.NamedTemporaryFile(delete=False) as tf:
+                    self._kafka_ca = tf.name
+                    tf.write(self.cacert.encode("utf-8"))
+            else:
+                return None
+        return self._kafka_ca
 
 class SmartAppConfig(AppConfig):
 
@@ -56,3 +71,8 @@ KafkaServers = []
 if LoadedConfig.kafka and len(LoadedConfig.kafka.brokers) > 0:
     for broker in LoadedConfig.kafka.brokers:
         KafkaServers.append("{}:{}".format(broker.hostname, broker.port))
+
+KafkaBrokers = []
+if LoadedConfig.kafka and len(LoadedConfig.kafka.brokers) > 0:
+    for broker in LoadedConfig.kafka.brokers:
+        KafkaBrokers.append(KafkaBroker(broker))
