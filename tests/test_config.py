@@ -18,3 +18,4 @@ def test_load_config():
         ca_content = fp.read()
         assert ca_content == "test"
     assert KafkaBrokers[0].sasl.username == "bob"
+    assert KafkaBrokers[0].broker_url == "broker-host:27015"

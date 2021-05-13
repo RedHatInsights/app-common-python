@@ -4,6 +4,18 @@ import tempfile
 from typing import List, Optional
 from .types import AppConfig
 
+class KafkaBrokersClass():
+
+    _items = None
+
+    def __init__(self, info):
+        self._items = []
+        for broker in info:
+            self._items.append(KafkaBroker(broker))
+
+    def __getitem__(self, i):
+        return self._items[i]
+
 class KafkaBroker():
     def __init__(self, info):
         for k, v in info.__dict__.items():
@@ -19,6 +31,10 @@ class KafkaBroker():
             else:
                 return None
         return self._kafka_ca
+
+    @property
+    def broker_url(self):
+        return "{}:{}".format(broker.hostname, broker.port)
 
 class SmartAppConfig(AppConfig):
 
@@ -72,7 +88,8 @@ if LoadedConfig.kafka and len(LoadedConfig.kafka.brokers) > 0:
     for broker in LoadedConfig.kafka.brokers:
         KafkaServers.append("{}:{}".format(broker.hostname, broker.port))
 
-KafkaBrokers = []
+KafkaBrokers = None
 if LoadedConfig.kafka and len(LoadedConfig.kafka.brokers) > 0:
-    for broker in LoadedConfig.kafka.brokers:
-        KafkaBrokers.append(KafkaBroker(broker))
+    KafkaBrokers = KafkaBrokersClass(LoadedConfig.kafka.brokers)
+    # for broker in LoadedConfig.kafka.brokers:
+    #     KafkaBrokers.append(KafkaBroker(broker))
