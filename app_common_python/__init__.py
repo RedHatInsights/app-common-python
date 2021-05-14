@@ -1,12 +1,10 @@
 import json
 import os
 import tempfile
-from typing import List, Optional
 from .types import AppConfig
 
 
 class SmartAppConfig(AppConfig):
-
     def rds_ca(self):
         if not hasattr(self, "_rds_ca"):
             with tempfile.NamedTemporaryFile(delete=False) as tf:
@@ -15,8 +13,10 @@ class SmartAppConfig(AppConfig):
 
         return self._rds_ca
 
-def isClowderEnabled ():
+
+def isClowderEnabled():
     return bool(os.environ.get("ACG_CONFIG", False))
+
 
 def loadConfig(filename):
     if not filename:
@@ -26,17 +26,18 @@ def loadConfig(filename):
             data = json.load(f)
     return SmartAppConfig.dictToObject(data)
 
+
 LoadedConfig = loadConfig(os.environ.get("ACG_CONFIG"))
 
 KafkaTopics = {}
 if LoadedConfig.kafka and len(LoadedConfig.kafka.topics) > 0:
-	for topic in LoadedConfig.kafka.topics:
-		KafkaTopics[topic.requestedName] = topic
+    for topic in LoadedConfig.kafka.topics:
+        KafkaTopics[topic.requestedName] = topic
 
 ObjectBuckets = {}
 if LoadedConfig.objectStore and len(LoadedConfig.objectStore.buckets) > 0:
-	for bucket in LoadedConfig.objectStore.buckets:
-		ObjectBuckets[bucket.requestedName] = bucket
+    for bucket in LoadedConfig.objectStore.buckets:
+        ObjectBuckets[bucket.requestedName] = bucket
 
 DependencyEndpoints = {}
 if LoadedConfig.endpoints and len(LoadedConfig.endpoints) > 0:
