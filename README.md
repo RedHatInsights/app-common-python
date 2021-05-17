@@ -8,12 +8,13 @@ Usage
 
 To access configuration, see the following example
 
-```
-from app-common-python import LoadedConfig
+```python
+from app_common_python import LoadedConfig
+from app_common_python import isClowderEnabled
 
-func main() {
-    if LoadedConfig.isClowderEnabled() {
-        fmt.Printf("Public Port: %s", LoadedConfig.PublicPort)
+def main() {
+    if isClowderEnabled() {
+        print(f"Public Port: {LoadedConfig.PublicPort}")
     }
 }
 ```
