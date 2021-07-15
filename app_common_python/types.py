@@ -447,7 +447,9 @@ class BrokerConfig:
 
         obj.sasl = KafkaSASLConfig.dictToObject(dict.get('sasl', None))
         return obj
-
+    
+    def __str__(self):
+        return "hostname: {0}, port: {1}, authtype: {3}, sasl: {4}".format(self.hostname, self.port, self.authtype, self.sasl)
 
 class TopicConfig:
     """ Topic Configuration
