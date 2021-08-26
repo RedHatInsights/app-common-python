@@ -296,6 +296,9 @@ class FeatureFlagsConfig:
         #: Feature Flags Configuration
         self.port = None
 
+        #: Feature Flags Configuration
+        self.clientAccessToken = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -305,6 +308,8 @@ class FeatureFlagsConfig:
         obj.hostname = dict.get('hostname', None)
 
         obj.port = dict.get('port', None)
+
+        obj.clientAccessToken = dict.get('clientAccessToken', None)
         return obj
 
 
