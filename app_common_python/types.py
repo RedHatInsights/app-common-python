@@ -30,6 +30,9 @@ class AppConfig:
         self.logging = None
 
         #: ClowdApp deployment configuration for Clowder enabled apps.
+        self.metadata = None
+
+        #: ClowdApp deployment configuration for Clowder enabled apps.
         self.kafka = None
 
         #: ClowdApp deployment configuration for Clowder enabled apps.
@@ -67,6 +70,8 @@ class AppConfig:
         obj.metricsPath = dict.get('metricsPath', None)
 
         obj.logging = LoggingConfig.dictToObject(dict.get('logging', None))
+
+        obj.metadata = AppMetadata.dictToObject(dict.get('metadata', None))
 
         obj.kafka = KafkaConfig.dictToObject(dict.get('kafka', None))
 
@@ -111,6 +116,28 @@ class LoggingConfig:
         obj.type = dict.get('type', None)
 
         obj.cloudwatch = CloudWatchConfig.dictToObject(dict.get('cloudwatch', None))
+        return obj
+
+
+class AppMetadata:
+    """ Arbitrary metadata pertaining to the application application
+    """
+
+    def __init__(self):
+
+        #: Arbitrary metadata pertaining to the application application
+        self.deployments = []
+
+    @classmethod
+    def dictToObject(cls, dict):
+        if dict is None:
+            return None
+        obj = cls()
+
+        arrayDeployments = dict.get('deployments', [])
+        for elemDeployments in arrayDeployments:
+            obj.deployments.append(
+                DeploymentMetadata.dictToObject(elemDeployments))
         return obj
 
 
@@ -299,6 +326,9 @@ class FeatureFlagsConfig:
         #: Feature Flags Configuration
         self.clientAccessToken = None
 
+        #: Feature Flags Configuration
+        self.scheme = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -310,6 +340,8 @@ class FeatureFlagsConfig:
         obj.port = dict.get('port', None)
 
         obj.clientAccessToken = dict.get('clientAccessToken', None)
+
+        obj.scheme = FeatureFlagsConfigSchemeEnum.valueForString(dict.get('scheme', None))
         return obj
 
 
@@ -412,6 +444,30 @@ class CloudWatchConfig:
         obj.region = dict.get('region', None)
 
         obj.logGroup = dict.get('logGroup', None)
+        return obj
+
+
+class DeploymentMetadata:
+    """ Deployment Metadata
+    """
+
+    def __init__(self):
+
+        #: Deployment Metadata
+        self.name = None
+
+        #: Deployment Metadata
+        self.image = None
+
+    @classmethod
+    def dictToObject(cls, dict):
+        if dict is None:
+            return None
+        obj = cls()
+
+        obj.name = dict.get('name', None)
+
+        obj.image = dict.get('image', None)
         return obj
 
 
@@ -568,5 +624,34 @@ class ObjectStoreBucket:
 
         obj.name = dict.get('name', None)
         return obj
+
+
+class FeatureFlagsConfigSchemeEnum(Enum):
+    HTTP = 'http'
+    HTTPS = 'https'
+
+    @classmethod
+    def valueForString(cls, stringValue):
+        lowerStringValue = stringValue.lower() if stringValue is not None else None
+        if lowerStringValue is None:
+            return None
+        elif lowerStringValue == 'http':
+            return FeatureFlagsConfigSchemeEnum.HTTP
+        elif lowerStringValue == 'https':
+            return FeatureFlagsConfigSchemeEnum.HTTPS
+        else:
+            return None
+
+    @classmethod
+    def valueAsString(cls, enumValue):
+        if enumValue is None:
+            return ''
+        elif enumValue == FeatureFlagsConfigSchemeEnum.HTTP:
+            return 'http'
+        elif enumValue == FeatureFlagsConfigSchemeEnum.HTTPS:
+            return 'https'
+        else:
+            return ''
+
 
 
