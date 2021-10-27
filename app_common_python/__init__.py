@@ -24,7 +24,7 @@ def loadConfig(filename):
     else:
         with open(filename) as f:
             data = json.load(f)
-    return SmartAppConfig.dictToObject(data)
+    return SmartAppConfig(data)
 
 
 LoadedConfig = loadConfig(os.environ.get("ACG_CONFIG"))

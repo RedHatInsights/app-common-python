@@ -9,90 +9,44 @@ class AppConfig:
     """ ClowdApp deployment configuration for Clowder enabled apps.
     """
 
-    def __init__(self):
-
-        #: ClowdApp deployment configuration for Clowder enabled apps.
-        self.privatePort = None
-
-        #: ClowdApp deployment configuration for Clowder enabled apps.
-        self.publicPort = None
-
-        #: ClowdApp deployment configuration for Clowder enabled apps.
-        self.webPort = None
-
-        #: ClowdApp deployment configuration for Clowder enabled apps.
-        self.metricsPort = None
-
-        #: ClowdApp deployment configuration for Clowder enabled apps.
-        self.metricsPath = None
-
-        #: ClowdApp deployment configuration for Clowder enabled apps.
-        self.logging = None
-
-        #: ClowdApp deployment configuration for Clowder enabled apps.
-        self.metadata = None
-
-        #: ClowdApp deployment configuration for Clowder enabled apps.
-        self.kafka = None
-
-        #: ClowdApp deployment configuration for Clowder enabled apps.
-        self.database = None
-
-        #: ClowdApp deployment configuration for Clowder enabled apps.
-        self.objectStore = None
-
-        #: ClowdApp deployment configuration for Clowder enabled apps.
-        self.inMemoryDb = None
-
-        #: ClowdApp deployment configuration for Clowder enabled apps.
-        self.featureFlags = None
-
-        #: ClowdApp deployment configuration for Clowder enabled apps.
-        self.endpoints = []
-
-        #: ClowdApp deployment configuration for Clowder enabled apps.
-        self.privateEndpoints = []
-
-    @classmethod
-    def dictToObject(cls, dict):
-        if dict is None:
+    def __init__(self, config):
+        if config is None:
             return None
-        obj = cls()
 
-        obj.privatePort = dict.get('privatePort', None)
+        self.privatePort = config.get('privatePort', None)
 
-        obj.publicPort = dict.get('publicPort', None)
+        self.publicPort = config.get('publicPort', None)
 
-        obj.webPort = dict.get('webPort', None)
+        self.webPort = config.get('webPort', None)
 
-        obj.metricsPort = dict.get('metricsPort', None)
+        self.metricsPort = config.get('metricsPort', None)
 
-        obj.metricsPath = dict.get('metricsPath', None)
+        self.metricsPath = config.get('metricsPath', None)
 
-        obj.logging = LoggingConfig.dictToObject(dict.get('logging', None))
+        self.logging = LoggingConfig.dictToObject(config.get('logging', None))
 
-        obj.metadata = AppMetadata.dictToObject(dict.get('metadata', None))
+        self.metadata = AppMetadata.dictToObject(config.get('metadata', None))
 
-        obj.kafka = KafkaConfig.dictToObject(dict.get('kafka', None))
+        self.kafka = KafkaConfig.dictToObject(config.get('kafka', None))
 
-        obj.database = DatabaseConfig.dictToObject(dict.get('database', None))
+        self.database = DatabaseConfig.dictToObject(config.get('database', None))
 
-        obj.objectStore = ObjectStoreConfig.dictToObject(dict.get('objectStore', None))
+        self.objectStore = ObjectStoreConfig.dictToObject(config.get('objectStore', None))
 
-        obj.inMemoryDb = InMemoryDBConfig.dictToObject(dict.get('inMemoryDb', None))
+        self.inMemoryDb = InMemoryDBConfig.dictToObject(config.get('inMemoryDb', None))
 
-        obj.featureFlags = FeatureFlagsConfig.dictToObject(dict.get('featureFlags', None))
+        self.featureFlags = FeatureFlagsConfig.dictToObject(config.get('featureFlags', None))
 
-        arrayEndpoints = dict.get('endpoints', [])
-        for elemEndpoints in arrayEndpoints:
-            obj.endpoints.append(
-                DependencyEndpoint.dictToObject(elemEndpoints))
+        self.endpoints = [
+            DependencyEndpoint.dictToObject(elemEndpoints)
+            for elemEndpoints in config.get('endpoints', [])
+        ]
 
-        arrayPrivateEndpoints = dict.get('privateEndpoints', [])
-        for elemPrivateEndpoints in arrayPrivateEndpoints:
-            obj.privateEndpoints.append(
-                PrivateDependencyEndpoint.dictToObject(elemPrivateEndpoints))
-        return obj
+
+        self.privateEndpoints = [
+            PrivateDependencyEndpoint.dictToObject(elemPrivateEndpoints)
+            for elemPrivateEndpoints in config.get('privateEndpoints', [])
+        ]
 
 
 class LoggingConfig:
