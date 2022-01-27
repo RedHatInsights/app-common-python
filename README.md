@@ -36,4 +36,4 @@ The ``clowder`` library also comes with several other helpers
 Testing
 -------
 
-`ACG_CONFIG="test.json" pytest`
+``ACG_CONFIG="test.json" pytest``
