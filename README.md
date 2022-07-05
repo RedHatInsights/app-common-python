@@ -20,6 +20,8 @@ The ``clowder`` library also comes with several other helpers
 
 * ``LoadedConfig.rds_ca()`` - creates a temporary file with the RDSCa and
   returns the filename.
+* ``LoadedConfig.kafka_ca()`` - creates a temporary file with the KafkaCa and
+  returns the filename from the frist broker in the list.
 * ``KafkaTopics`` - returns a map of KafkaTopics using the requestedName
   as the key and the topic object as the value.
 * ``KafkaServers`` - returns a list of Kafka Broker URLs.

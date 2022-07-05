@@ -12,5 +12,8 @@ def test_load_config():
     with open(LoadedConfig.rds_ca()) as fp:
         ca_content = fp.read()
         assert ca_content == "ca"
+    with open(LoadedConfig.kafka_ca()) as fp:
+        ca_content = fp.read()
+        assert ca_content == "kafkaca"
     assert isClowderEnabled() == True
     assert LoadedConfig.featureFlags.hostname == "ff-server.server.example.com"
