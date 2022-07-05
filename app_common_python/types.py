@@ -53,6 +53,9 @@ class AppConfig:
         #: ClowdApp deployment configuration for Clowder enabled apps.
         self.privateEndpoints = []
 
+        #: ClowdApp deployment configuration for Clowder enabled apps.
+        self.BOPURL = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -92,6 +95,8 @@ class AppConfig:
         for elemPrivateEndpoints in arrayPrivateEndpoints:
             obj.privateEndpoints.append(
                 PrivateDependencyEndpoint.dictToObject(elemPrivateEndpoints))
+
+        obj.BOPURL = dict.get('BOPURL', None)
         return obj
 
 
@@ -126,6 +131,12 @@ class AppMetadata:
     def __init__(self):
 
         #: Arbitrary metadata pertaining to the application application
+        self.name = None
+
+        #: Arbitrary metadata pertaining to the application application
+        self.envName = None
+
+        #: Arbitrary metadata pertaining to the application application
         self.deployments = []
 
     @classmethod
@@ -133,6 +144,10 @@ class AppMetadata:
         if dict is None:
             return None
         obj = cls()
+
+        obj.name = dict.get('name', None)
+
+        obj.envName = dict.get('envName', None)
 
         arrayDeployments = dict.get('deployments', [])
         for elemDeployments in arrayDeployments:
@@ -546,6 +561,12 @@ class KafkaSASLConfig:
         #: SASL Configuration for Kafka
         self.password = None
 
+        #: SASL Configuration for Kafka
+        self.securityProtocol = None
+
+        #: SASL Configuration for Kafka
+        self.saslMechanism = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -555,6 +576,10 @@ class KafkaSASLConfig:
         obj.username = dict.get('username', None)
 
         obj.password = dict.get('password', None)
+
+        obj.securityProtocol = dict.get('securityProtocol', None)
+
+        obj.saslMechanism = dict.get('saslMechanism', None)
         return obj
 
 

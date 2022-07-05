@@ -13,6 +13,14 @@ class SmartAppConfig(AppConfig):
 
         return self._rds_ca
 
+    def kafka_ca(self):
+        if not hasattr(self, "_kafka_ca"):
+            with tempfile.NamedTemporaryFile(delete=False) as tf:
+                self._kafka_ca = tf.name
+                tf.write(self.kafka.brokers[0].cacert.encode("utf-8"))
+
+        return self._kafka_ca
+
 
 def isClowderEnabled():
     return bool(os.environ.get("ACG_CONFIG", False))
