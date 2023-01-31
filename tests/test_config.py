@@ -9,6 +9,7 @@ def test_load_config():
     assert PrivateDependencyEndpoints["app2"]["endpoint2"].name == "endpoint2"
     assert ObjectBuckets["reqname"].name == "name"
     assert KafkaServers[0] == "broker-host:27015"
+    assert LoadedConfig.kafka.brokers[0].securityProtocol == "plaintext"
     with open(LoadedConfig.rds_ca()) as fp:
         ca_content = fp.read()
         assert ca_content == "ca"
