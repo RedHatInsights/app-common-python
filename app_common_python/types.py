@@ -505,6 +505,9 @@ class BrokerConfig:
         self.authtype = None
 
         #: Broker Configuration
+        self.securityProtocol = None
+
+        #: Broker Configuration
         self.sasl = None
 
     @classmethod
@@ -520,6 +523,8 @@ class BrokerConfig:
         obj.cacert = dict.get('cacert', None)
 
         obj.authtype = BrokerConfigAuthtypeEnum.valueForString(dict.get('authtype', None))
+
+        obj.securityProtocol = dict.get('securityProtocol', None)
 
         obj.sasl = KafkaSASLConfig.dictToObject(dict.get('sasl', None))
         return obj

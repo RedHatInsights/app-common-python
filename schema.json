@@ -225,6 +225,9 @@
                     "type": "string",
                     "enum": ["mtls", "sasl"]
                 },
+		"securityProtocol": {
+                    "type": "string"
+                },
                 "sasl": {
                     "$ref": "#/definitions/KafkaSASLConfig"
                 }
