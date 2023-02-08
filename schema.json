@@ -28,6 +28,10 @@
                     "description": "Defines the path to the metrics server that the app should be configured to listen on for metric traffic.",
                     "type": "string"
                 },
+                "tlsCAPath": {
+                    "description": "Defines the path to the ca cert file for tls client communication.",
+                    "type": "string"
+                },
                 "logging": {
                     "$ref": "#/definitions/LoggingConfig"
                 },

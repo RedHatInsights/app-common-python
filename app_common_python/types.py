@@ -25,7 +25,10 @@ class AppConfig:
 
         #: ClowdApp deployment configuration for Clowder enabled apps.
         self.metricsPath = None
-
+      
+        #: ClowdApp deployment configuration for Clowder enabled apps.
+        self.tlsCAPath = None
+        
         #: ClowdApp deployment configuration for Clowder enabled apps.
         self.logging = None
 
@@ -71,6 +74,8 @@ class AppConfig:
         obj.metricsPort = dict.get('metricsPort', None)
 
         obj.metricsPath = dict.get('metricsPath', None)
+
+        obj.tlsCAPath = dict.get('tlsCAPath', None)
 
         obj.logging = LoggingConfig.dictToObject(dict.get('logging', None))
 
