@@ -21,6 +21,9 @@ class AppConfig:
         self.webPort = None
 
         #: ClowdApp deployment configuration for Clowder enabled apps.
+        self.tlsCAPath = None
+
+        #: ClowdApp deployment configuration for Clowder enabled apps.
         self.metricsPort = None
 
         #: ClowdApp deployment configuration for Clowder enabled apps.
@@ -67,6 +70,8 @@ class AppConfig:
         obj.publicPort = dict.get('publicPort', None)
 
         obj.webPort = dict.get('webPort', None)
+
+        obj.tlsCAPath = dict.get('tlsCAPath', None)
 
         obj.metricsPort = dict.get('metricsPort', None)
 
@@ -378,6 +383,9 @@ class DependencyEndpoint:
         #: Dependent service connection info
         self.app = None
 
+        #: Dependent service connection info
+        self.tlsPort = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -391,6 +399,8 @@ class DependencyEndpoint:
         obj.port = dict.get('port', None)
 
         obj.app = dict.get('app', None)
+
+        obj.tlsPort = dict.get('tlsPort', None)
         return obj
 
 
@@ -412,6 +422,9 @@ class PrivateDependencyEndpoint:
         #: Dependent service connection info
         self.app = None
 
+        #: Dependent service connection info
+        self.tlsPort = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -425,6 +438,8 @@ class PrivateDependencyEndpoint:
         obj.port = dict.get('port', None)
 
         obj.app = dict.get('app', None)
+
+        obj.tlsPort = dict.get('tlsPort', None)
         return obj
 
 
