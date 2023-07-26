@@ -5,6 +5,8 @@ def test_load_config():
     assert KafkaTopics["originalName"].name == "someTopic"
     assert DependencyEndpoints["app1"]["endpoint1"].port == 8000
     assert DependencyEndpoints["app2"]["endpoint2"].name == "endpoint2"
+    assert DependencyEndpoints["app1"]["endpoint1"].apiPath == "app1-api-path"
+    assert DependencyEndpoints["app2"]["endpoint2"].apiPath == "app2-api-path"
     assert PrivateDependencyEndpoints["app1"]["endpoint1"].port == 10000
     assert PrivateDependencyEndpoints["app2"]["endpoint2"].name == "endpoint2"
     assert ObjectBuckets["reqname"].name == "name"
