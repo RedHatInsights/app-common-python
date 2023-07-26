@@ -386,6 +386,9 @@ class DependencyEndpoint:
         #: Dependent service connection info
         self.tlsPort = None
 
+        #: The top level api path that the app should serve from /api/<apiPath>
+        self.apiPath = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -401,6 +404,8 @@ class DependencyEndpoint:
         obj.app = dict.get('app', None)
 
         obj.tlsPort = dict.get('tlsPort', None)
+
+        obj.apiPath = dict.get('apiPath', None)
         return obj
 
 
