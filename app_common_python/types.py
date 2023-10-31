@@ -59,6 +59,9 @@ class AppConfig:
         #: ClowdApp deployment configuration for Clowder enabled apps.
         self.BOPURL = None
 
+        #: ClowdApp deployment configuration for Clowder enabled apps.
+        self.hashCache = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -102,6 +105,8 @@ class AppConfig:
                 PrivateDependencyEndpoint.dictToObject(elemPrivateEndpoints))
 
         obj.BOPURL = dict.get('BOPURL', None)
+
+        obj.hashCache = dict.get('hashCache', None)
         return obj
 
 
@@ -315,6 +320,9 @@ class InMemoryDBConfig:
         #: In Memory DB Configuration
         self.password = None
 
+        #: In Memory DB Configuration
+        self.sslMode = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -328,6 +336,8 @@ class InMemoryDBConfig:
         obj.username = dict.get('username', None)
 
         obj.password = dict.get('password', None)
+
+        obj.sslMode = dict.get('sslMode', None)
         return obj
 
 
@@ -386,8 +396,11 @@ class DependencyEndpoint:
         #: Dependent service connection info
         self.tlsPort = None
 
-        #: The top level api path that the app should serve from /api/<apiPath>
+        #: Dependent service connection info
         self.apiPath = None
+
+        #: Dependent service connection info
+        self.apiPaths = []
 
     @classmethod
     def dictToObject(cls, dict):
@@ -406,6 +419,10 @@ class DependencyEndpoint:
         obj.tlsPort = dict.get('tlsPort', None)
 
         obj.apiPath = dict.get('apiPath', None)
+
+        arrayApiPaths = dict.get('apiPaths', [])
+        for elemApiPaths in arrayApiPaths:
+            obj.apiPaths.append(elemApiPaths)
         return obj
 
 
@@ -658,6 +675,12 @@ class ObjectStoreBucket:
         #: Object Storage Bucket
         self.name = None
 
+        #: Object Storage Bucket
+        self.tls = None
+
+        #: Object Storage Bucket
+        self.endpoint = None
+
     @classmethod
     def dictToObject(cls, dict):
         if dict is None:
@@ -673,6 +696,10 @@ class ObjectStoreBucket:
         obj.requestedName = dict.get('requestedName', None)
 
         obj.name = dict.get('name', None)
+
+        obj.tls = dict.get('tls', None)
+
+        obj.endpoint = dict.get('endpoint', None)
         return obj
 
 
