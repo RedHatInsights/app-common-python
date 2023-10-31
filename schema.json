@@ -70,6 +70,10 @@
                 "BOPURL": {
                     "description": "Defines the path to the BOPURL.",
                     "type": "string"
+                },
+                "hashCache": {
+                    "description": "A set of configMap/secret hashes",
+                    "type": "string"
                 }
             },
             "required": [
@@ -338,6 +342,14 @@
                 "name": {
                     "description": "The actual name of the bucket being accessed.",
                     "type": "string"
+                },
+                "tls": {
+                    "description": "Details if the Object Server uses TLS.",
+                    "type": "boolean"
+                },
+                "endpoint": {
+                    "description": "Defines the endpoint for the Object Storage server configuration.",
+                    "type": "string"
                 }
             },
             "required": [
@@ -432,6 +444,10 @@
                 "password": {
                     "description": "Defines the password for the In Memory DB server configuration.",
                     "type": "string"
+                },
+                "sslMode": {
+                    "description": "Defines the sslMode used by the In Memory DB server coniguration",
+                    "type": "boolean"
                 }
             },
             "required": [
@@ -466,8 +482,16 @@
                     "type": "integer"
                 },
                 "apiPath": {
-                    "description": "The top level api path that the app should serve from /api/<apiPath>"
-                } 
+                    "description": "The top level api path that the app should serve from /api/<apiPath> (deprecated, use apiPaths)",
+                    "type": "string"
+                },
+                "apiPaths": {
+                    "description": "The list of API paths (each matching format: '/api/some-path/') that this app will serve requests from",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
             },
             "required": [
                 "name",
