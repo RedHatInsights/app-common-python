@@ -354,6 +354,9 @@ class FeatureFlagsConfig:
         self.port = None
 
         #: Feature Flags Configuration
+        self.tlsPort = None
+
+        #: Feature Flags Configuration
         self.clientAccessToken = None
 
         #: Feature Flags Configuration
@@ -368,6 +371,8 @@ class FeatureFlagsConfig:
         obj.hostname = dict.get('hostname', None)
 
         obj.port = dict.get('port', None)
+
+        obj.port = dict.get('tlsPort', None)
 
         obj.clientAccessToken = dict.get('clientAccessToken', None)
 
