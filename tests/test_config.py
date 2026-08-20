@@ -1,7 +1,9 @@
 from app_common_python import (
     LoadedConfig, KafkaTopics, DependencyEndpoints, ObjectBuckets,
     KafkaServers, isClowderEnabled, PrivateDependencyEndpoints,
-    DependencyEndpointsV2, get_v2_dependency_endpoint, loadConfig,
+    DependencyEndpointsV2, get_v2_dependency_endpoint,
+    PrivateDependencyEndpointsV2, get_v2_private_dependency_endpoint,
+    loadConfig,
 )
 from app_common_python.types import V2Endpoint
 
@@ -68,6 +70,47 @@ def test_get_v2_dependency_endpoint_missing_endpoint():
 def test_v2_missing_from_config():
     config = loadConfig(None)
     assert config.dependencyEndpoints is None
+
+
+def test_v2_private_dependency_endpoints_parsed():
+    assert "app1" in PrivateDependencyEndpointsV2
+    assert "app2" in PrivateDependencyEndpointsV2
+    assert "internal" in PrivateDependencyEndpointsV2["app1"]
+    assert "worker" in PrivateDependencyEndpointsV2["app2"]
+
+
+def test_v2_private_endpoint_fields():
+    ep = PrivateDependencyEndpointsV2["app1"]["internal"]
+    assert isinstance(ep, V2Endpoint)
+    assert ep.uri == "https://app1-internal.env.svc:10443"
+    assert ep.ca_certificate == "/cdapp/certs/internal-ca.crt"
+    assert ep.authenticated is False
+
+
+def test_v2_private_endpoint_authenticated():
+    ep = PrivateDependencyEndpointsV2["app2"]["worker"]
+    assert ep.uri == "https://app2-worker.env.svc:10443"
+    assert ep.ca_certificate is None
+    assert ep.authenticated is True
+
+
+def test_get_v2_private_dependency_endpoint():
+    ep = get_v2_private_dependency_endpoint("app1", "internal")
+    assert ep is not None
+    assert ep.uri == "https://app1-internal.env.svc:10443"
+
+
+def test_get_v2_private_dependency_endpoint_missing_app():
+    assert get_v2_private_dependency_endpoint("nonexistent", "internal") is None
+
+
+def test_get_v2_private_dependency_endpoint_missing_endpoint():
+    assert get_v2_private_dependency_endpoint("app1", "nonexistent") is None
+
+
+def test_v2_private_missing_from_config():
+    config = loadConfig(None)
+    assert config.privateDependencyEndpoints is None
 
 
 def test_v1_endpoints_unchanged():

@@ -49,6 +49,10 @@ The ``clowder`` library also comes with several other helpers
   for V2 dependency endpoints with simplified connection info.
 * ``get_v2_dependency_endpoint(app, endpoint)`` - returns a single V2 endpoint
   or ``None`` if not found.
+* ``PrivateDependencyEndpointsV2`` - returns a nested map using \[appName\]\[endpointName\]
+  for V2 private dependency endpoints with simplified connection info.
+* ``get_v2_private_dependency_endpoint(app, endpoint)`` - returns a single V2 private
+  endpoint or ``None`` if not found.
 
 V2 Dependency Endpoints
 -----------------------

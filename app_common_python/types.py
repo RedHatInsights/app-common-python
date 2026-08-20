@@ -60,6 +60,9 @@ class AppConfig:
         self.dependencyEndpoints = None
 
         #: ClowdApp deployment configuration for Clowder enabled apps.
+        self.privateDependencyEndpoints = None
+
+        #: ClowdApp deployment configuration for Clowder enabled apps.
         self.endpoints = []
 
         #: ClowdApp deployment configuration for Clowder enabled apps.
@@ -122,6 +125,17 @@ class AppConfig:
                     obj.dependencyEndpoints[appName] = {}
                     for endpointName, endpointData in endpoints.items():
                         obj.dependencyEndpoints[appName][endpointName] = \
+                            V2Endpoint.dictToObject(endpointData)
+
+        privateDepEndpoints = dict.get('privateDependencyEndpoints', None)
+        if privateDepEndpoints is not None:
+            v2Dict = privateDepEndpoints.get('v2', None)
+            if v2Dict is not None:
+                obj.privateDependencyEndpoints = {}
+                for appName, endpoints in v2Dict.items():
+                    obj.privateDependencyEndpoints[appName] = {}
+                    for endpointName, endpointData in endpoints.items():
+                        obj.privateDependencyEndpoints[appName][endpointName] = \
                             V2Endpoint.dictToObject(endpointData)
 
         arrayEndpoints = dict.get('endpoints', [])

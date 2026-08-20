@@ -107,5 +107,22 @@
                 }
             }
         }
+    },
+    "privateDependencyEndpoints": {
+        "v2": {
+            "app1": {
+                "internal": {
+                    "uri": "https://app1-internal.env.svc:10443",
+                    "ca_certificate": "/cdapp/certs/internal-ca.crt",
+                    "authenticated": false
+                }
+            },
+            "app2": {
+                "worker": {
+                    "uri": "https://app2-worker.env.svc:10443",
+                    "authenticated": true
+                }
+            }
+        }
     }
 }

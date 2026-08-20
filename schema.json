@@ -92,6 +92,9 @@
                 },
                 "dependencyEndpoints": {
                     "$ref": "#/definitions/DependencyEndpointsConfig"
+                },
+                "privateDependencyEndpoints": {
+                    "$ref": "#/definitions/DependencyEndpointsConfig"
                 }
             },
             "required": [

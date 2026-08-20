@@ -75,6 +75,20 @@ def get_v2_dependency_endpoint(app, endpoint):
     return app_endpoints.get(endpoint)
 
 
+PrivateDependencyEndpointsV2 = {}
+if LoadedConfig.privateDependencyEndpoints:
+    PrivateDependencyEndpointsV2 = LoadedConfig.privateDependencyEndpoints
+
+
+def get_v2_private_dependency_endpoint(app, endpoint):
+    if not PrivateDependencyEndpointsV2:
+        return None
+    app_endpoints = PrivateDependencyEndpointsV2.get(app)
+    if not app_endpoints:
+        return None
+    return app_endpoints.get(endpoint)
+
+
 KafkaServers = []
 if LoadedConfig.kafka and len(LoadedConfig.kafka.brokers) > 0:
     for broker in LoadedConfig.kafka.brokers:
